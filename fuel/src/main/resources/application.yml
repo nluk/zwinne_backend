@@ -1,0 +1,18 @@
+mongo:
+  dbName: 'fuel'
+  host: '0.0.0.0'
+  username: 'fuelapp'
+  password: 'fuelapp'
+jwt:
+  secret: 'x'
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+
+#spring:
+#  data:
+#    mongodb:
+#      authentication-database: admin
