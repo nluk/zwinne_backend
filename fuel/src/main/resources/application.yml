@@ -11,6 +11,9 @@ server:
     session:
       cookie:
         http-only: true
+spring:
+  mvc:
+    logResolvedException: false
 
 #spring:
 #  data:

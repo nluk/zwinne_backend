@@ -1,5 +1,7 @@
 package agile.fuel.config
 
+import agile.fuel.domain.converters.StringToLocalDateTime
+import agile.fuel.domain.converters.allConverters
 import com.mongodb.MongoClientSettings
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
 import org.springframework.data.mongodb.core.MongoClientFactoryBean
+import org.springframework.data.mongodb.core.convert.MongoCustomConversions
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
 
 @Configuration
@@ -31,4 +34,8 @@ class MongoConfig(
     override fun getDatabaseName(): String {
         return mongoProperties.dbName
     }
+
+    @Bean
+    fun registerConverters() : MongoCustomConversions = MongoCustomConversions(allConverters())
+
 }

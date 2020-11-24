@@ -6,6 +6,7 @@ import java.util.*
 
 abstract class AuditableEntity {
     var created  = LocalDateTime.now()
+    var modified : LocalDateTime ? = null
     @Version
-    var modified : LocalDateTime? = null
+    var version = 0L
 }

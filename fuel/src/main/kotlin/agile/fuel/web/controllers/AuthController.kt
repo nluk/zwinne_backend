@@ -2,6 +2,7 @@ package agile.fuel.web.controllers
 
 import agile.fuel.service.AuthService
 import agile.fuel.service.UserService
+import agile.fuel.service.exceptions.FuelException
 import agile.fuel.web.dto.LoginDTO
 import agile.fuel.web.dto.RegisterUserDTO
 import org.apache.coyote.Response
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.Resource
 import javax.servlet.http.Cookie
 import javax.validation.Valid
+import kotlin.jvm.Throws
 
 @RestController
 @RequestMapping("/auth")
@@ -29,6 +31,7 @@ class AuthController(
         @Resource
         val passwordEncoder: BCryptPasswordEncoder
 ){
+    @Throws(FuelException::class)
     @PostMapping("/register")
     fun register(@Valid @RequestBody registerUser : RegisterUserDTO) : ResponseEntity<Any> {
         userService.createUser(registerUser)
