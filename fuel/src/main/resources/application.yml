@@ -4,13 +4,16 @@ mongo:
   username: 'fuelapp'
   password: 'fuelapp'
 jwt:
-  secret: 'x'
+  secret: 'dG1vY2pxZ3hxZmlwaXlhb2N6bXVyem5qbnJzbXFzenNhZWdjemdjemJ4dWt1Z25ycXdzbXdjc2RsZmJqYXVja3BtYWRkc2R2aWdkcm1saWR6enFjZWxid25xcXF3Z2puZnp5ZQ=='
+  issuer: 'fuel.app'
+  tokenLifetime: 9999999
 
 server:
   servlet:
     session:
       cookie:
         http-only: true
+    context-path: '/fuel'
 spring:
   mvc:
     logResolvedException: false

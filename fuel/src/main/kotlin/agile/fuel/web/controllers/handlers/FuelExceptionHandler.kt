@@ -14,8 +14,9 @@ import java.time.LocalDateTime
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 class FuelExceptionHandler : ResponseEntityExceptionHandler() {
+
     @ExceptionHandler(FuelException::class)
-    protected fun handleEntityNotFound(fuelException: FuelException): ResponseEntity<ErrorMessage> {
+    protected fun handleError(fuelException: FuelException): ResponseEntity<ErrorMessage> {
         val errorMessage = ErrorMessage(fuelException.message, HttpStatus.INTERNAL_SERVER_ERROR.name, HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now())
         return ResponseEntity(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR)
     }

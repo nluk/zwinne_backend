@@ -1,22 +1,26 @@
 package agile.fuel.auth
 
 import agile.fuel.domain.model.UserEntity
+import org.bson.types.ObjectId
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.io.Serializable
 
-class AuthUserDetails(userEntity: UserEntity) : UserDetails {
+class AuthUserDetails(userEntity: UserEntity) : UserDetails, Serializable {
 
-    val id : String
+    val id : ObjectId
     val login : String
+    @Transient
     val pass : String
-    val roles : MutableSet<GrantedAuthority>
+    val roles : MutableSet<SimpleGrantedAuthority>
 
     init {
         userEntity.also {
-            id = it.id
+            id = it.id!!
             login = it.login
             pass = it.password
-            roles = it.grantedRoles.map { roleEntity -> GrantedAuthority { roleEntity.role } }.toHashSet()
+            roles = it.grantedRoles.map { roleEntity -> SimpleGrantedAuthority(roleEntity.role) }.toHashSet()
         }
     }
 

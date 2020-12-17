@@ -1,6 +1,7 @@
 package agile.fuel.auth
 
 import agile.fuel.config.MongoProperties
+import com.google.gson.Gson
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -17,6 +18,10 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import javax.annotation.Resource
+import org.springframework.security.config.core.GrantedAuthorityDefaults
+
+
+
 
 
 @Configuration
@@ -27,6 +32,10 @@ class WebSecurityConfig(
         @Qualifier("mongoAuth")
         @Resource
         val userDetailsService: UserDetailsService,
+        @Resource
+        val tokenUtil: TokenUtil,
+        @Resource
+        val gson : Gson
 ) : WebSecurityConfigurerAdapter() {
 
     @Autowired
@@ -38,7 +47,7 @@ class WebSecurityConfig(
 
     @Bean
     fun authenticationTokenFilterBean(): JwtAuthenticationFilter {
-        return JwtAuthenticationFilter(userDetailsService, tokenUtil())
+        return JwtAuthenticationFilter(userDetailsService, tokenUtil, gson)
     }
 
     @Throws(Exception::class)
@@ -59,6 +68,8 @@ class WebSecurityConfig(
     fun encoder() = BCryptPasswordEncoder()
 
     @Bean
-    fun tokenUtil() = TokenUtil()
+    fun grantedAuthorityDefaults(): GrantedAuthorityDefaults {
+        return GrantedAuthorityDefaults("") // Remove the ROLE_ prefix
+    }
 
 }

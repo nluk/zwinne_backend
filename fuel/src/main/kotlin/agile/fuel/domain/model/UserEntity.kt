@@ -5,8 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "fuel_users")
 class UserEntity : AuditableEntity(){
-    @Id
-    var id = ""
     var login = ""
     var email = ""
     var password = ""
