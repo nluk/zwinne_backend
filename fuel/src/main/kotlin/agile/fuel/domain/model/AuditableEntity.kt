@@ -12,8 +12,8 @@ import java.util.*
 abstract class AuditableEntity : Serializable {
     @Id
     var id : ObjectId? = null
-    var created  = LocalDateTime.now()
-    var modified : LocalDateTime ? = null
+    var created : Date = Date()
+    var modified : Date ? = null
     @Version
     var version = 0L
 }

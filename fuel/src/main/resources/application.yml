@@ -17,6 +17,8 @@ server:
 spring:
   mvc:
     logResolvedException: false
+    converters:
+      preferred-json-mapper: 'gson'
 
 #spring:
 #  data:

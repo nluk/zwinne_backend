@@ -34,7 +34,6 @@ class UserServiceImpl(
 
     override fun createUser(registerUser: RegisterUserDTO) {
         val user = UserEntity()
-        user.created = LocalDateTime.now()
         user.email = registerUser.email
         user.password = passwordEncoder.encode(registerUser.password)
         user.login = registerUser.login
