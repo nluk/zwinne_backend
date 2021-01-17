@@ -11,13 +11,21 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
+import org.springframework.data.mongodb.config.EnableMongoAuditing
 import org.springframework.data.mongodb.core.MongoClientFactoryBean
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
+import org.springframework.data.mongodb.MongoTransactionManager
+
+import org.springframework.data.mongodb.MongoDatabaseFactory
+
+
+
 
 @Configuration
 @EnableConfigurationProperties(value = [MongoProperties::class])
 @EnableMongoRepositories(basePackages = ["agile.fuel.domain.dao"])
+@EnableMongoAuditing(modifyOnCreate = false)
 class MongoConfig(
         @Autowired
         val mongoProperties : MongoProperties
@@ -34,6 +42,11 @@ class MongoConfig(
     override fun getDatabaseName(): String {
         return mongoProperties.dbName
     }
+
+//    @Bean
+//    fun transactionManager(dbFactory: MongoDatabaseFactory): MongoTransactionManager? {
+//        return MongoTransactionManager(dbFactory)
+//    }
 
     @Bean
     fun registerConverters() : MongoCustomConversions = MongoCustomConversions(allConverters())

@@ -1,4 +1,4 @@
-package agile.fuel.domain.serialization
+package agile.fuel.domain.conf
 
 import com.google.gson.*
 import org.bson.types.ObjectId

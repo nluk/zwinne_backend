@@ -1,19 +1,12 @@
 package agile.fuel.config
 
-import agile.fuel.auth.AuthUserDetails
-import agile.fuel.domain.model.AuditableEntity
-import agile.fuel.domain.serialization.ObjectIdDeserializer
-import agile.fuel.domain.serialization.ObjectIdSerializer
-import com.google.gson.ExclusionStrategy
-import com.google.gson.FieldAttributes
+import agile.fuel.domain.conf.ObjectIdDeserializer
+import agile.fuel.domain.conf.ObjectIdSerializer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.bson.types.ObjectId
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Component
-import java.text.DateFormat
-import kotlin.reflect.full.isSuperclassOf
 
 @Component
 class GSONConfig {
