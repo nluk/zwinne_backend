@@ -19,9 +19,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import javax.annotation.Resource
 import org.springframework.security.config.core.GrantedAuthorityDefaults
-
-
-
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.web.filter.CorsFilter
 
 
 @Configuration
@@ -52,12 +54,12 @@ class WebSecurityConfig(
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/auth/*").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler()).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/auth/*").permitAll()
+            .anyRequest().authenticated().and()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler()).and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter::class.java)
     }
 
