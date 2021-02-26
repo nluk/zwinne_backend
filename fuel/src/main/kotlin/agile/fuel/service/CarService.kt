@@ -13,6 +13,7 @@ interface CarService {
     fun add(car: CarDTO) : CarEntity
     fun getById(id : ObjectId) : Optional<CarEntity>
     fun update(car: UpdateCarDTO) : CarEntity
+    fun deleteCar (carId: ObjectId) : CarEntity
     fun findAllByOwner(ownerId : ObjectId) : List<CarEntity>
     fun findOneByOwner(carId : ObjectId, ownerId: ObjectId) : CarEntity
 }

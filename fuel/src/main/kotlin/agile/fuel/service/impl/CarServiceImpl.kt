@@ -52,6 +52,12 @@ class CarServiceImpl(
         return dbCar
     }
 
+    override fun deleteCar(carId: ObjectId): CarEntity {
+        val dbCar = carRepository.findById(carId).orElseThrow { FuelException(FuelErrorType.UNKNOWN_CAR, carId.toHexString()) }
+        carRepository.delete(dbCar)
+        return dbCar
+    }
+
     override fun findAllByOwner(ownerId: ObjectId): List<CarEntity> {
         return mongoOperations.find(Query().addCriteria(CarEntity::ownerId isEqualTo ownerId), CarEntity::class.java)
     }

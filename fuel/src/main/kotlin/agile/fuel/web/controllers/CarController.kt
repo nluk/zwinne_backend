@@ -31,6 +31,11 @@ class CarController(
         return ResponseEntity.ok(carService.update(carDTO))
     }
 
+    @PostMapping("/delete")
+    fun delete(@RequestBody carId: ObjectId) : ResponseEntity<CarEntity>{
+        return ResponseEntity.ok(carService.deleteCar(carId))
+    }
+
     @GetMapping
     fun getCars() : ResponseEntity<List<CarEntity>>{
         return ResponseEntity.ok(carService.findAllByOwner(getCurrentUserId()))
