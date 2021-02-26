@@ -6,9 +6,23 @@ import javax.validation.constraints.NotNull
 
 open class CarDTO {
         @NotBlank
-        var make: String = ""
+        var carName: String = ""
+
+        @NotBlank
+        var carDescription: String = ""
+
+        @NotBlank
+        var make : String = ""
+
+        @NotBlank
+        var model: String = ""
+
         @NotNull
         var year : Int = 0
+
+        var registrationNumber: String = ""
+        var VIN: String = ""
+
 }
 
 open class UpdateCarDTO : CarDTO(){

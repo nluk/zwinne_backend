@@ -39,8 +39,14 @@ class CarServiceImpl(
             throw FuelException(FuelErrorType.OPTIMISTIC_LOCK, car.id.toHexString())
         }
         with(dbCar){
+            carName = car.carName
+            carDescription = car.carDescription
             make = car.make
+            model = car.model
             year = car.year
+            registrationNumber = car.registrationNumber
+            VIN = car.VIN
+
         }
         carRepository.save(dbCar)
         return dbCar
@@ -60,8 +66,13 @@ class CarServiceImpl(
 
     private fun newCar(car: CarDTO) : CarEntity{
         val carEntity = CarEntity()
+        carEntity.carName = car.carName
+        carEntity.carDescription = car.carDescription
         carEntity.make= car.make
+        carEntity.model = car.model
         carEntity.year = car.year
+        carEntity.registrationNumber = car.registrationNumber
+        carEntity.VIN = car.VIN
         carEntity.ownerId = getCurrentUserId()
         return carEntity
     }
