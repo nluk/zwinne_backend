@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.Resource
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.websocket.server.PathParam
 
 @RestController
@@ -31,8 +32,8 @@ class CarController(
         return ResponseEntity.ok(carService.update(carDTO))
     }
 
-    @PostMapping("/delete")
-    fun delete(@RequestBody carId: ObjectId) : ResponseEntity<CarEntity>{
+    @DeleteMapping("/{carId}")
+    fun delete(@NotNull @PathVariable("carId") carId : ObjectId) : ResponseEntity<CarEntity>{
         return ResponseEntity.ok(carService.deleteCar(carId))
     }
 
@@ -42,8 +43,8 @@ class CarController(
     }
 
     @GetMapping("/{carId}")
-    fun getCar(@PathVariable("carId") @NotBlank carId : String) : ResponseEntity<CarEntity>{
-        return ResponseEntity.ok(carService.findOneByOwner(ObjectId(carId), getCurrentUserId()))
+    fun getCar(@NotNull @PathVariable("carId") carId : ObjectId) : ResponseEntity<CarEntity>{
+        return ResponseEntity.ok(carService.findOneByOwner(carId, getCurrentUserId()))
     }
 
 }

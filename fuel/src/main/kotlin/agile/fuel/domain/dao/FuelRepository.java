@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface FuelRepository extends MongoRepository<FuelEntity, ObjectId> {
-    List<FuelEntity> findAllByCarId(String carId);
+    List<FuelEntity> findAllByCarId(ObjectId carId);
 }

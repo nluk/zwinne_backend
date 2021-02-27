@@ -4,6 +4,7 @@ import agile.fuel.domain.dao.FuelRepository;
 import agile.fuel.domain.model.FuelEntity;
 import agile.fuel.service.FuelService;
 import agile.fuel.web.dto.FuelDTO;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class FuelServiceImpl implements FuelService {
     }
 
     @Override
-    public List<FuelEntity> getFuelsByCar(String carId) {
+    public List<FuelEntity> getFuelsByCar(ObjectId carId) {
         return fuelRepository.findAllByCarId(carId);
     }
 

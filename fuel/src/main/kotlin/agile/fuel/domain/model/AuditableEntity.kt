@@ -5,12 +5,14 @@ import com.google.gson.FieldAttributes
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Version
+import org.springframework.data.mongodb.core.index.Indexed
 import java.io.Serializable
 import java.time.LocalDateTime
 import java.util.*
 
 abstract class AuditableEntity : Serializable {
     @Id
+    @Indexed
     var id : ObjectId? = null
     var created : Date = Date()
     var modified : Date ? = null

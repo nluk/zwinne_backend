@@ -1,11 +1,23 @@
 package agile.fuel.web.dto;
 
+import org.bson.types.ObjectId;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
 public class FuelDTO {
 
-    public Double liters = 0.0;
-    public Double costPerLiter = 0.0;
-    public Double fullCost = 0.0;
-    public String type = "";
-    public String carId = null;
+    @NotNull
+    public Double liters;
+
+    @NotNull
+    public Double costPerLiter;
+
+    public Double fullCost;
+
+    public String type;
+
+    @NotNull
+    public ObjectId carId;
 
 }
