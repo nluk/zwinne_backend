@@ -38,7 +38,7 @@ class CarServiceImpl(
         if(dbCar.version > car.version){
             throw FuelException(FuelErrorType.OPTIMISTIC_LOCK, car.id.toHexString())
         }
-        with(dbCar){
+        dbCar.apply {
             carName = car.carName
             carDescription = car.carDescription
             make = car.make
@@ -46,7 +46,6 @@ class CarServiceImpl(
             year = car.year
             registrationNumber = car.registrationNumber
             VIN = car.VIN
-
         }
         carRepository.save(dbCar)
         return dbCar
@@ -62,26 +61,30 @@ class CarServiceImpl(
         return mongoOperations.find(Query().addCriteria(CarEntity::ownerId isEqualTo ownerId), CarEntity::class.java)
     }
 
-    override fun findOneByOwner(carId: ObjectId, ownerId: ObjectId) : CarEntity {
-        with(Query()){
+    override fun findOneByOwner(carId: ObjectId, ownerId: ObjectId) : CarEntity = with(Query()){
             addCriteria(CarEntity::ownerId isEqualTo ownerId)
             addCriteria(CarEntity::id isEqualTo carId)
-            return mongoOperations.findOne(this, CarEntity::class.java) ?: throw FuelException(FuelErrorType.UNKNOWN_CAR, carId.toHexString())
-        }
+            mongoOperations.findOne(this, CarEntity::class.java) ?: throw FuelException(FuelErrorType.UNKNOWN_CAR, carId.toHexString())
     }
 
-    private fun newCar(car: CarDTO) : CarEntity{
-        val carEntity = CarEntity()
-        carEntity.carName = car.carName
-        carEntity.carDescription = car.carDescription
-        carEntity.make= car.make
-        carEntity.model = car.model
-        carEntity.year = car.year
-        carEntity.registrationNumber = car.registrationNumber
-        carEntity.VIN = car.VIN
-        carEntity.ownerId = getCurrentUserId()
-        return carEntity
+
+    override fun findCarOwner(carId: ObjectId): Optional<ObjectId> = with(Query()){
+           addCriteria(CarEntity::id isEqualTo carId)
+           fields().include("ownerId")
+           Optional.ofNullable(mongoOperations.findOne(this, CarEntity::class.java)?.ownerId)
     }
+
+    private fun newCar(car: CarDTO) : CarEntity = CarEntity().apply {
+        carName = car.carName
+        carDescription = car.carDescription
+        make= car.make
+        model = car.model
+        year = car.year
+        registrationNumber = car.registrationNumber
+        VIN = car.VIN
+        ownerId = getCurrentUserId()
+    }
+
 
 
 }

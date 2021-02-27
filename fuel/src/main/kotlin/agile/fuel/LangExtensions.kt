@@ -2,6 +2,6 @@ package agile.fuel
 
 import java.util.*
 
-fun Date.plusMillis(millis : Long) : Date{
+infix fun Date.plusMillis(millis : Long) : Date{
     return Date(this.time + millis)
 }

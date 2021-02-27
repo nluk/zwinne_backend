@@ -12,6 +12,11 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 import agile.fuel.plusMillis;
+import io.jsonwebtoken.security.Keys
+
+import io.jsonwebtoken.io.Decoders
+import java.security.Key
+
 
 @Component
 class TokenUtil(@Autowired jwtConfigProperties: JwtConfigProperties) {
@@ -19,8 +24,8 @@ class TokenUtil(@Autowired jwtConfigProperties: JwtConfigProperties) {
     val logger: Logger = LoggerFactory.getLogger(TokenUtil::class.java)
 
     val issuer = jwtConfigProperties.issuer
-    val secret : String = jwtConfigProperties.secret
-    var parser : JwtParser = Jwts.parser().setSigningKey(jwtConfigProperties.secret)
+    val key : Key = jwtConfigProperties.secret.let { Decoders.BASE64.decode(it) }.let { Keys.hmacShaKeyFor(it) }
+    var parser : JwtParser = Jwts.parserBuilder().setSigningKey(jwtConfigProperties.secret).build()
     val tokenLifetime : Long = jwtConfigProperties.tokenLifetime
 
     fun parseAndValidate(tokenString: String) : Claims?{
@@ -42,13 +47,13 @@ class TokenUtil(@Autowired jwtConfigProperties: JwtConfigProperties) {
 
     fun createTokenForClaims(claims : String) : Pair<Date, String>{
         val now = Date()
-        val expiration = now.plusMillis(tokenLifetime)
+        val expiration = now plusMillis tokenLifetime
         return Pair(expiration,  Jwts.builder()
             .setSubject(claims)
             .setIssuer(issuer)
             .setIssuedAt(now)
             .setExpiration(expiration)
-            .signWith(SignatureAlgorithm.HS512, secret)
+            .signWith(key, SignatureAlgorithm.HS512)
             .compact())
     }
 

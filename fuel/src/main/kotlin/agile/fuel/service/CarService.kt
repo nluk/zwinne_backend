@@ -16,4 +16,5 @@ interface CarService {
     fun deleteCar (carId: ObjectId) : CarEntity
     fun findAllByOwner(ownerId : ObjectId) : List<CarEntity>
     fun findOneByOwner(carId : ObjectId, ownerId: ObjectId) : CarEntity
+    fun findCarOwner(carId: ObjectId) : Optional<ObjectId>
 }

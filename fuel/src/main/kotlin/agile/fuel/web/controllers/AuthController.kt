@@ -8,6 +8,7 @@ import agile.fuel.web.dto.LoginRequestDTO
 import agile.fuel.web.dto.LoginResponseDTO
 import agile.fuel.web.dto.RegisterUserDTO
 import com.google.gson.Gson
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -44,7 +45,7 @@ class AuthController(
 
     @PostMapping("/login")
     fun login(@Valid @RequestBody loginRequestDTO: LoginRequestDTO, servletResponse: HttpServletResponse) : ResponseEntity<Any>{
-        val user = authService.loadUserByUsername(loginRequestDTO.username)
+        val user = authService.loadUserByUsername(loginRequestDTO.login)
         if(!passwordEncoder.matches(loginRequestDTO.password, user.password)){
             throw BadCredentialsException("Invalid login data provided")
         }
@@ -54,7 +55,7 @@ class AuthController(
     }
 
     fun prepareJWTCookie(jwt : String) : Cookie{
-        val cookie = Cookie("auth", jwt)
+        val cookie = Cookie(HttpHeaders.AUTHORIZATION, jwt)
         cookie.path = "/fuel"
         //cookie.secure = true
         cookie.isHttpOnly = true
