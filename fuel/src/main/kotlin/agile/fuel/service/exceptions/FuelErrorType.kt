@@ -8,7 +8,8 @@ enum class FuelErrorType {
     DUPLICATED_EMAIL("Customer with email {} already exists", HttpStatus.BAD_REQUEST),
     UNKNOWN_CAR("Car with id {} doesn't exist", HttpStatus.NOT_FOUND),
     WRONG_OWNER("Car with id {} doesn't belong to user {}", HttpStatus.UNAUTHORIZED),
-    OPTIMISTIC_LOCK("Car with id {} was updated before your attempt", HttpStatus.BAD_REQUEST);
+    OPTIMISTIC_LOCK("Entity with id {} was updated before your attempt", HttpStatus.BAD_REQUEST),
+    UNKNOWN_COST_ENTITY("Couldn't map entity with type {}");
 
     private val messageTemplate : String
     val status : HttpStatus

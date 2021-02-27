@@ -1,7 +1,9 @@
 package agile.fuel.config
 
+import agile.fuel.domain.conf.CostAdapter
 import agile.fuel.domain.conf.ObjectIdDeserializer
 import agile.fuel.domain.conf.ObjectIdSerializer
+import agile.fuel.web.dto.CostDTO
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.bson.types.ObjectId
@@ -20,6 +22,7 @@ class GSONConfig {
         return GsonBuilder()
                 .registerTypeAdapter(ObjectId::class.java, ObjectIdDeserializer())
                 .registerTypeAdapter(ObjectId::class.java, ObjectIdSerializer())
+                .registerTypeAdapter(CostDTO::class.java, CostAdapter())
                 .setDateFormat(DATE_FORMAT)
                 .create()
     }
