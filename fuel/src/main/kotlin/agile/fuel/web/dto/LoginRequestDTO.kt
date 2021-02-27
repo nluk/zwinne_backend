@@ -6,5 +6,5 @@ data class LoginRequestDTO(
     @NotBlank
     val password : String,
     @NotBlank
-    val username : String
+    val login : String
 )

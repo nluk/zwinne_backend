@@ -20,13 +20,13 @@ class CarController(
         val carService: CarService
 ) {
 
-    @PostMapping("/add")
+    @PostMapping
     fun add(@RequestBody carDTO: CarDTO) : ResponseEntity<CarEntity>{
         return ResponseEntity.ok(carService.add(carDTO))
     }
 
     @CheckOwner
-    @PostMapping("/update")
+    @PutMapping
     fun update(@RequestBody carDTO : UpdateCarDTO) : ResponseEntity<CarEntity>{
         return ResponseEntity.ok(carService.update(carDTO))
     }
@@ -36,7 +36,7 @@ class CarController(
         return ResponseEntity.ok(carService.findAllByOwner(getCurrentUserId()))
     }
 
-    @GetMapping("/id/{carId}")
+    @GetMapping("/{carId}")
     fun getCar(@PathVariable("carId") @NotBlank carId : String) : ResponseEntity<CarEntity>{
         return ResponseEntity.ok(carService.findOneByOwner(ObjectId(carId), getCurrentUserId()))
     }

@@ -38,7 +38,7 @@ class CarServiceImpl(
         if(dbCar.version > car.version){
             throw FuelException(FuelErrorType.OPTIMISTIC_LOCK, car.id.toHexString())
         }
-        with(dbCar){
+        dbCar.apply {
             make = car.make
             year = car.year
         }
@@ -50,13 +50,19 @@ class CarServiceImpl(
         return mongoOperations.find(Query().addCriteria(CarEntity::ownerId isEqualTo ownerId), CarEntity::class.java)
     }
 
-    override fun findOneByOwner(carId: ObjectId, ownerId: ObjectId) : CarEntity {
-        with(Query()){
+    override fun findOneByOwner(carId: ObjectId, ownerId: ObjectId) : CarEntity = with(Query()){
             addCriteria(CarEntity::ownerId isEqualTo ownerId)
             addCriteria(CarEntity::id isEqualTo carId)
-            return mongoOperations.findOne(this, CarEntity::class.java) ?: throw FuelException(FuelErrorType.UNKNOWN_CAR, carId.toHexString())
-        }
+            mongoOperations.findOne(this, CarEntity::class.java) ?: throw FuelException(FuelErrorType.UNKNOWN_CAR, carId.toHexString())
     }
+
+
+    override fun findCarOwner(carId: ObjectId): Optional<ObjectId> = with(Query()){
+           addCriteria(CarEntity::id isEqualTo carId)
+           fields().include("ownerId")
+           Optional.ofNullable(mongoOperations.findOne(this, CarEntity::class.java)?.ownerId)
+    }
+
 
     private fun newCar(car: CarDTO) : CarEntity{
         val carEntity = CarEntity()

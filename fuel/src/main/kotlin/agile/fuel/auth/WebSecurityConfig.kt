@@ -49,7 +49,7 @@ class WebSecurityConfig(
 
     @Bean
     fun authenticationTokenFilterBean(): JwtAuthenticationFilter {
-        return JwtAuthenticationFilter(userDetailsService, tokenUtil, gson)
+        return JwtAuthenticationFilter(tokenUtil, gson)
     }
 
     @Throws(Exception::class)

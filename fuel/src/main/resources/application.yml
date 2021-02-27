@@ -1,6 +1,6 @@
 mongo:
   dbName: 'fuel'
-  host: '0.0.0.0'
+  host: 'nluk.me'
   username: 'fuelapp'
   password: 'fuelapp'
 jwt:
@@ -19,8 +19,3 @@ spring:
     logResolvedException: false
     converters:
       preferred-json-mapper: 'gson'
-
-#spring:
-#  data:
-#    mongodb:
-#      authentication-database: admin
