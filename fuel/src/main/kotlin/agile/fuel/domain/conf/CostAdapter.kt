@@ -2,6 +2,7 @@ package agile.fuel.domain.conf
 
 import agile.fuel.web.dto.CostDTO
 import agile.fuel.web.dto.FuelCostDTO
+import agile.fuel.web.dto.OtherCostDTO
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
@@ -13,7 +14,7 @@ class CostAdapter : JsonDeserializer<CostDTO> {
     private companion object {
         private const val TYPE = "type"
         private val COST_TYPES = mapOf(
-         FuelCostDTO.TYPE to FuelCostDTO::class.java
+         FuelCostDTO.TYPE to FuelCostDTO::class.java, OtherCostDTO.TYPE to OtherCostDTO::class.java
         )
     }
 
