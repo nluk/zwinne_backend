@@ -4,12 +4,12 @@ import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 data class RegisterUserDTO(
-        @NotBlank
+        @field:NotBlank
         val login : String,
-        @NotBlank
+        @field:NotBlank
         val password : String,
-        @Email(regexp = EMAIL_REGEX)
-        @NotBlank
+        @field:Email(regexp = EMAIL_REGEX)
+        @field:NotBlank
         val email : String
 ){
         companion object Regex{

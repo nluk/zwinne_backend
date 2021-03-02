@@ -3,8 +3,8 @@ package agile.fuel.web.dto
 import javax.validation.constraints.NotBlank
 
 data class LoginRequestDTO(
-    @NotBlank
+    @field:NotBlank
     val password : String,
-    @NotBlank
+    @field:NotBlank
     val login : String
 )

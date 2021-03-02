@@ -6,30 +6,35 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 open class CarDTO {
-        @NotBlank
+        @get:NotBlank
         var carName: String = ""
 
-        @NotBlank
+        @get:NotBlank
         var carDescription: String = ""
 
-        @NotBlank
+        @get:NotBlank
         var make : String = ""
 
-        @NotBlank
+        @get:NotBlank
         var model: String = ""
 
-        @NotNull
+        @get:NotNull
         var year : Int = 0
 
         var registrationNumber: String = ""
         var VIN: String = ""
+}
 
+open class CreateCarDTO : CarDTO(){
+
+        @get:NotNull
+        var initialMileage : Double? = null
 }
 
 open class UpdateCarDTO : CarDTO(), CarReference{
-        @NotNull
+        @get:NotNull
         lateinit var id : ObjectId
-        @NotNull
+        @get:NotNull
         var version : Long = 0L
         override fun carId() = id
 }

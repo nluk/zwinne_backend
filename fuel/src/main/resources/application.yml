@@ -16,7 +16,7 @@ server:
     context-path: '/fuel'
 spring:
   mvc:
-    logResolvedException: false
+    logResolvedException: true
     converters:
       preferred-json-mapper: 'gson'
   data:

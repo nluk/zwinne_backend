@@ -111,6 +111,7 @@
 				<artifactId>kotlin-maven-plugin</artifactId>
 				<configuration>
 					<args>
+						<arg>-Xemit-jvm-type-annotations</arg>
 						<arg>-Xjsr305=strict</arg>
 					</args>
 					<compilerPlugins>

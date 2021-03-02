@@ -9,10 +9,4 @@ public class OtherCostDTO extends CostDTO {
 
     public String description;
 
-    public Double fullCost;
-
-    public Double mileage;
-
-    public Date date;
-
 }
