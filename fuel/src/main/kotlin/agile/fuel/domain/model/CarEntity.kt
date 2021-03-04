@@ -14,6 +14,7 @@ class CarEntity : AuditableEntity() {
     var VIN: String = ""
     lateinit var ownerId : ObjectId
 
+    var archived: Boolean = false
 
     var stats : CarStats? = null
 }

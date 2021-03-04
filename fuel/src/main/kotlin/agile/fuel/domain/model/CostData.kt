@@ -14,6 +14,7 @@ class FuelCost : CostData(){
     var fuelType : String? = null
     var costPerLiter : Double? = null
     var isFullRefueling = false
+    var petrolStation : String? = null
     lateinit var date :Date
 }
 

@@ -9,7 +9,6 @@ open class CarDTO {
         @get:NotBlank
         var carName: String = ""
 
-        @get:NotBlank
         var carDescription: String = ""
 
         @get:NotBlank
@@ -23,6 +22,8 @@ open class CarDTO {
 
         var registrationNumber: String = ""
         var VIN: String = ""
+
+        var archived: Boolean = false
 }
 
 open class CreateCarDTO : CarDTO(){

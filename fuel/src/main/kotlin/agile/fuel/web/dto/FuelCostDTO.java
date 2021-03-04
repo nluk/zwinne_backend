@@ -3,6 +3,7 @@ package agile.fuel.web.dto;
 import org.jetbrains.annotations.Nullable;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
@@ -21,6 +22,9 @@ public class FuelCostDTO extends CostDTO{
 
     @Nullable
     public Boolean isFullRefueling;
+
+    @Nullable
+    public String petrolStation;
 
 
 }

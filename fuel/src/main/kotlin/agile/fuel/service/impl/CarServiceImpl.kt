@@ -53,6 +53,7 @@ class CarServiceImpl(
             year = car.year
             registrationNumber = car.registrationNumber
             VIN = car.VIN
+            archived = car.archived
         }
         carRepository.save(dbCar)
         return dbCar
@@ -97,6 +98,7 @@ class CarServiceImpl(
         registrationNumber = car.registrationNumber
         VIN = car.VIN
         ownerId = getCurrentUserId()
+        archived = car.archived
     }
 
     private fun newCarStats(carId: ObjectId, initialMileage : Double) : CarStats = CarStats().also {

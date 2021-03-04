@@ -37,6 +37,7 @@ object CostMapper {
             fullCost = fuelCostDTO.fullCost
             costPerLiter = fuelCostDTO.costPerLiter
             isFullRefueling = fuelCostDTO.isFullRefueling ?: false
+            petrolStation = fuelCostDTO.petrolStation
             mileage = fuelCostDTO.mileage
             date = fuelCostDTO.date
         }
